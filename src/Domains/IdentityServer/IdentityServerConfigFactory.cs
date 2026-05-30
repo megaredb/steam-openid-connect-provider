@@ -33,6 +33,7 @@ public static class IdentityServerConfigFactory
             {
                 IdentityServerConstants.StandardScopes.OpenId,
                 IdentityServerConstants.StandardScopes.Profile,
+                IdentityServerConstants.StandardScopes.Email,
             }
         };
         yield return client;
@@ -43,7 +44,8 @@ public static class IdentityServerConfigFactory
         return new List<IdentityResource>
         {
             new IdentityResources.OpenId(),
-            new IdentityResources.Profile()
+            new IdentityResources.Profile(),
+            new IdentityResources.Email(),
         };
     }
 }
