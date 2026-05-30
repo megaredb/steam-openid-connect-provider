@@ -55,7 +55,7 @@ public sealed class SteamProfileService(
         {
             userSummary = await GetPlayerSummariesAsync([steamId]);
         }
-        catch (Exception ex) 
+        catch (Exception ex)
         {
             logger.LogError(ex, "Failed to retrieve player summary for SteamID: {SteamID}. Some claims will be missing.", steamId);
         }
@@ -67,7 +67,10 @@ public sealed class SteamProfileService(
             AddClaim(claims, OpenIdStandardClaims.Nickname, player.PersonaName ?? string.Empty);
             AddClaim(claims, OpenIdStandardClaims.PreferredUsername, player.PersonaName ?? string.Empty);
             AddClaim(claims, OpenIdStandardClaims.GivenName, string.IsNullOrWhiteSpace(player.RealName) ? player.PersonaName ?? player.SteamId : player.RealName);
+            AddClaim(claims, OpenIdStandardClaims.FamilyName, ".");
             AddClaim(claims, OpenIdStandardClaims.Website, player.ProfileUrl ?? string.Empty);
+            AddClaim(claims, OpenIdStandardClaims.Email, player.SteamId + "@steamid.invalid");
+            AddClaim(claims, OpenIdStandardClaims.EmailVerified, "true");
         }
 
         if (logger.IsEnabled(LogLevel.Debug))
